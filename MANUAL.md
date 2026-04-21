@@ -96,6 +96,7 @@
 | `/weekly` | 주간 | 주간 복기 |
 | `/monthly` | 월간 | 월간 복기 |
 | `/brain` | - | AI 작동 현황 (루프 횟수, 일일 비용, 도구 수, 축 건강도) |
+| `/health` | - | 🩺 23축 + Foundation Layer 건강도 (V3.72) — `/health <축id>` 로 상세 조회 |
 | `/router` | 라우터 | AI 비용 라우터 통계 |
 | `/debt` | 부채 | 기술 부채 현황 |
 | `/catchup` | 누락 | 놓친 작업 지연 실행 |
