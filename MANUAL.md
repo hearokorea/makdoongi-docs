@@ -229,8 +229,20 @@ HTS / 모바일앱 / 전화 주문 등 막둥이 외부에서 직접 매수·매
 
 **명령어:**
 - `/repairs` — 대기 목록 조회 (심각도·예상비용 표시)
+- `/repairs history [N]` — 처리 이력 조회 (완료/무시 포함, 기본 15건)
+- `/repairs today` — 오늘 처리된 수리 요약
 - `/repair <id 6자리> fix` — AI 수리 승인 (다음 AI 루프에서 시도)
 - `/repair <id 6자리> skip 메모` — 무시 처리
+
+**자동 resolve (V3.72):**
+시스템 자가 복기(축 23)가 5분마다 pending 항목을 검사해 근본 원인이 해결된 것을
+자동으로 `resolved` 처리합니다. 보수적 규칙만 적용:
+
+- `crash/hang_suspected`: 최근 체크 중 healthy ≥8/10 → 자동 해소
+- pending 24시간 경과 + 재현 없음 → 자연 해소
+
+자동 resolve 발생 시 `REPAIR_AUTO_RESOLVED` 정보 레벨 이벤트로 기록되어
+투명하게 추적됩니다.
 
 **알림 예시:**
 ```
