@@ -1,8 +1,8 @@
 # 막둥이 (Makdoongi)
 
-한국 주식 시장을 위한 AI 기반 개인 자동 매매 프로그램.
+한국 주식 시장을 위한 **AI 기반 개인 자동 매매 프로그램**.
 
-막둥이는 AI가 시장을 분석하고 판단해서 자동으로 매매를 수행합니다.
+막둥이는 AI 가 시장을 분석하고 판단해서 자동으로 매매를 수행합니다.
 사용자는 텔레그램으로 현황을 확인하고 명령을 내릴 수 있습니다.
 
 ---
@@ -13,74 +13,104 @@
 |---|---|---|
 | [사용자 가이드](GUIDE.md) | 처음 사용자 | 빠른 시작, 기본 사용법 |
 | [사용자 매뉴얼](MANUAL.md) | 모든 사용자 | 전체 기능, 명령어, 운영 안내 |
+| [변경 이력](CHANGELOG.md) | 관심 사용자 | 버전별 주요 변경 사항 |
 
-## 🚀 처음이신가요?
-
-**[사용자 가이드](GUIDE.md)** 부터 읽어주세요.
+**처음이신가요?** → [사용자 가이드](GUIDE.md) 부터 읽어주세요.
 
 ---
 
-## 주요 기능
+## ✨ 주요 기능
 
-- **AI 자율 매매** — 시장 분석 후 매수/매도 자동 결정
-- **실시간 손절·익절** — 설정한 조건에 도달하면 자동 청산
-- **텔레그램 연동** — 어디서나 현황 확인과 긴급 제어 가능
-- **일일 결산** — 매일 거래 결과 자동 정리 후 전달
-- **AI 비용 관리** — 일일 한도 내에서 스마트하게 API 사용
-- **외부 거래 자동 감지** — HTS/모바일앱으로 직접 매수/매도해도 자동으로 인식하고 반영
-- **지연 체결·데이터 정리** — 네트워크 지연으로 늦게 체결된 주문과 계좌·파일 불일치를 자동 보정
-- **복기 기반 자동 튜닝** — 매일 복기 결과에 따라 전략 조건을 자동 강화·완화 (과거 승률 + 현재 시장 regime + 미래 방향성 통합)
-- **재시작 후 자동 복원** — 크래시 감지 + 무결성 감사 + 강제 재조정을 부팅 시 자동 수행
-- **비용 의식형 수리 큐** — 고비용 AI 수정이 필요한 크래시·부채·오류는 자동 수리 대신 큐에 누적, `/repairs`로 몰아서 처리
-- **과거·현재·미래 통합 판단** — 손실 패턴 DB + 연속 손실 + 1주 전 대비 + 경제 캘린더 + 실적/공시 예정을 매 AI 루프에 자동 주입 (도구 호출 누락 시에도 맥락 확보)
-- **시스템 자가 복기 (5분 주기)** — 무거래·도구 실패율·판단-실행 괴리·수집기 노쇠를 자동 감지해 텔레그램 경고 + 수리 큐 누적
-- **재시작 시 포지션 안전** — 그룹 메타 유실 방지 + 자동 청산 옵트인 2중 안전 (화이트리스트 누락으로 인한 오청산 차단)
-- **자체 계산 극대화 비용 최적화** — 기술지표(RSI/MACD/ADX/BB/거래량)를 코드가 사전 계산하여 AI 프롬프트에 표로 주입, AI는 판단만 집중. TOOLS 정의 캐싱으로 토큰 재전송 최소화. 규칙 엔진으로 명확 케이스는 AI 호출 생략 → Haiku가 도구 호출 없이도 정확 판단
-- **즉시 복기 (강제 손절/-3%↓ 손실 직후)** — 매도 체결 1초 내 패턴 자동 분류 + 최근 30일 유사 사례 집계 + 개선 제안 텔레그램 전송. AI 호출 0, 비용 없음. 다음 매수 판단 시 축 22가 자동 참조
-- **오탐 감사 (메타 레이어, 10분 주기)** — 시스템이 발령한 경보·판정이 사후에 잘못된 것으로 드러나는 패턴을 체계 감사. 매도 실패 오판 / 외부 거래 오탐 / 무거래 경보 오탐 / validator 과엄격 / hang 오탐 5종. 3일 내 5회+ 누적 시 개선 제안 자동 발행 → 감지 품질 자가 순환
-- **런타임 주입 체계화 (runtime_wiring)** — 엔트리 파일(main.py) 핫리로드 제약을 우회하여 참조 주입 로직을 별도 모듈로 분리. 핫리로드 때마다 자동 재주입되어 **wiring 개선도 재시작 없이 반영** (main.py 수정 체감 제약 해소)
-- **핫리로드 축 편입 (30초 주기)** — 코드 리로드 + 인스턴스 재생성 + 참조 재주입이 하나의 축(25)으로 통합. 실패율·정체 자동 감시 + 반복 실패 모듈 자동 감지 → 수리 제안까지 순환
-- **24축 체계 + 소유 관계 명시화 (V3.72.1)** — V3.72 재구성. 모든 축에 `owns`(소유 모듈 경로) + `tier`(계층) 필드 공식 명시. 5개 Tier로 분류된 전체 체계가 투명하게 문서화됨. 전체 프로덕션 모듈이 24축 + 3 Foundation Layer 에 100% 공식 소유 (orphan 0 · 중복 0 · 유령 경로 0)
-- **로그·메시지 아카이브 (축 26, V3.72.1 신설)** — 텔레그램 송수신 전량을 SQLite 로 영속 기록 + 일별 로그 파일 tail 파싱으로 ERROR/WARNING 구조화 인덱싱. 30일 자동 retention. 다른 축(system_integrity · postmortem · false_positive_audit)이 조회 API 로 연계 참조 → 매도 실패 반복 등 이상 상황 감지 시 로그 증거 자동 첨부. 기존에 휘발되던 `_command_stats` · `_alert_cooldown` 메모리 상태를 영속 저장소로 승격
-- **유기체화 7-Stage 진화 (V3.72.1 완성)** — 살아 움직이는 생명체처럼 동작하도록 7단계 진화 완료
-  · **Meta-Awareness**: AI 가 자기 시스템 상태 인지 (system_self 자동 프롬프트 주입 — 포지션 만석/연속 손실/매도 실패율/regime_tag/**항상성 이탈**/**성공 패턴 매칭**)
-  · **Growth 실증**: 일일 복기 → 전략 자동 튜닝 → SQLite `strategy_tuning_history` 영속 → STRATEGY_AUTO_TUNED 이벤트
-  · **Homeostasis Controller (축 27)**: 5분 주기 목표 상태 측정 → 이탈 시 자동 복귀 (신규 매수 차단/보수 모드/브로커 재연결) + **AI 프롬프트 자동 주입**
-  · **Response 속도**: NEWS_URGENT 등 긴급 이벤트 → 2초 내 AI 루프 트리거 (이전 180초 → 90× 빠른 반응)
-  · **Immunity 자동 치유**: SELL_FAIL_STREAK / HOT_RELOAD_FAILED / HEARTBEAT_STALE 등 5종 CRITICAL 이벤트 자동 치유
-  · **Circulation 가시화**: 이벤트 핸들러 실패 통계 누적 → /health 노출
-  · **Reproduction (학습 루프 완성)**: 익절 5%+ 매도 시 성공 시그니처 자동 추출 → `data/success_patterns.json` 영속 → **스크리너가 유사 종목에 보너스 점수(0.2~0.4) 자동 부여**
-  · 신규 AI 도구: `get_homeostasis_status` · `get_success_patterns` · `get_tool_usage_stats` · `get_event_bus_stats` · `get_axis_events` (AI 가 자발적 조회 가능)
-- **Backlog P1~P3 전수 처리 (V3.72.1, 2026-04-22)** — 메타 점검 후 누적된 9건 개선 항목 일괄 반영
-  · **자기 인지 강화**: 항상성 이탈/성공 패턴/수리 큐/핫리로드 상태를 AI 프롬프트에 자동 주입
-  · **/health · /성과 통합**: Homeostasis 상태 + 최근 자동 조치 + SuccessPattern 요약 섹션 추가
-  · **운영 자산 정리**: loop_journal/trade_journal 30일 자동 purge + 전략 백업/테스트/WAL 파일 git 제외
-  · **체계 분류**: 107/107 AI 도구 카테고리화 (22 분류) + 143/143 파라미터 그룹화 (14 분류) + 메타 축(tier 5) meta_group 부여
-  · **포지션 자가 보정**: group↔max_hold_sec 정합성 불일치 자동 교정 ([장기/AI-초단타] 등 레거시 태그 버그 방지)
-- **스키마 정합성 자동 관리 (V3.72.1, 2026-04-22)** — 코드 개선 시 "레거시 데이터 불일치" 의 능동적·유기적 해결
-  · 축 18 data_integrity 를 **파일 손상 감지**에서 **cross-field 의미 정합성 감사**까지 확장
-  · 소유 모듈이 자기 cross-field 룰을 plugin 방식으로 등록(ConsistencyRule) — 각 축이 자기 데이터 책임
-  · 핫리로드 완료 직후 전수 감사 + 자동 교정 → **코드 업데이트 직후 레거시 저장값이 스스로 보정**
-  · 교정 시 DATA_SCHEMA_MISMATCH 이벤트 발행 → 다른 축이 반응 가능 (학습/경보)
-  · 새 AI 도구 `audit_data_consistency` — AI 가 스스로 감사·교정 호출 가능
-  · 등록된 룰 2종: `position_group_hold_sec_alignment` (AI-초단타 + max_hold_sec>1일 자동 교정), `trades_buy_group_max_hold_sec_completeness` (BUY 거래 레거시 필드 bulk 보정)
-- **시스템 자가 감지 오탐 맥락화 (V3.72.1, 2026-04-22 감사 기반)** — 경보 폭주 해소
-  · `NO_TRADE_DURING_ACTIVE`: 점심시간 skip + 안전장치 교차검증 + 포지션 만석 skip + 임계 3h/6h 상향
-  · `LOOP_STALL_CRITICAL`: 장마감 + 30분 grace (16:00 이후 scalp 비실행 정상)
-  · `MIDLONG_STALL_CRITICAL`: 오늘 첫 midlong 실행 후 120분 grace (재시작 직후 오탐 차단) + 최신 파일 참조 버그 수정
-  · 효과: CRITICAL 경보 3종의 명백한 오탐이 사라져 텔레그램 노이즈 감소
-- **항상성 상태 영속 (V3.72.1, 2026-04-22)** — `data/homeostasis_state.json` 저장/복원 추가. 재시작 후에도 off_targets/최근 자동 조치 이력이 보존되어 AI 프롬프트 자기인지 섹션에 즉시 반영
-- **자투리 매수 차단 + 기존 자투리 자동 청산 (V3.72.1, 2026-04-22 피드백)** — 수수료·슬리피지 대비 비효율적인 소액 매매 근절
-  · **신규 차단**: `min_order_amount` (기본 500,000원) — 건당 주문 금액 하한. 미달 시 safety_layer 에서 BUY 차단 ("자투리 매수 차단")
-  · **기존 청산**: `tiny_liquidation_enabled` — on_tick 6단계로 자투리 포지션(cost < min_order_amount)이 본전(기본) 회복 시 자동 매도. 손해 없이 처분
-  · AI 도구 `buy_stock` description 에 명시 → AI 가 스스로 회피
-  · 텔레그램 `set_config` 로 기준 조정 가능 (min_order_amount=0 비활성)
-- **컴팩트 알림** — 모바일 알림 한 화면에 핵심 정보 모두 표시
+### 1. AI 자율 매매
+- 시장 분석 → 종목 스크리닝 → 매수/매도 자동 실행
+- Claude Opus/Sonnet/Haiku 3계층 비용 최적화 (규칙 엔진으로 명확 케이스는 AI 호출 생략)
+- 기술 지표(RSI/MACD/ADX/BB 등) 사전 계산 후 프롬프트 주입 — AI 는 판단에만 집중
+
+### 2. 실시간 리스크 관리
+- 강제 손절(-10%) · 1차 손절(-5% AI 판단) · 익절 · 트레일링 스탑
+- 자투리 매수 차단 (건당 최소 주문 금액) + 자투리 포지션 자동 청산 (본전 회복 시)
+- 항상성 컨트롤러 — 연속 손실 / 매도 실패율 / 포지션 만석 상태에서 자동 보수화
+
+### 3. 텔레그램 연동
+- 현황 보고 · 포지션 · 성과 · 결산 · 전략 실시간 조회
+- 자기 진단(`/selfstate`) · 시스템 건강도(`/health`) · 수리 큐(`/repairs`) · 자율 튜닝(`/tune`)
+- 자유 입력으로 AI 에게 직접 명령/질문 가능
+
+### 4. 자가 복기·학습·자율 개선
+- **즉시 복기** — 손절 직후 1초 내 패턴 분류 + 개선 제안
+- **일일/주간/월간 복기** — 자동 실행 + 텔레그램 리포트
+- **패턴 학습** — 손실/성공/오탐 3종 DB + 통계 기반 신규 패턴 자동 발견
+- **자율 튜닝** — 이벤트 기반 파라미터 자동 조정 (safety gate + 3일 후 효과 측정 + 악화 시 자동 롤백)
+- **자기 진단** — 24h 슬라이딩 윈도우로 "나는 지금 struggling 상태" 같은 자기 인식
+
+### 5. 안정성·복원력
+- 크래시 감지 + 무결성 감사 + 강제 재조정 (부팅 시 자동)
+- 미완료 액션 24h 재개 + 유령 포지션 자동 정리 (3회 미확인 후)
+- 외부 거래 / 지연 체결 자동 구분 (`order_no` + ticker·qty·side intent 매칭)
+- 매 상태 이벤트 영속화 — 재시작해도 경보 쿨다운/항상성 이탈/매도 실패 카운터 모두 보존
+
+### 6. 비용 의식형 수리 큐
+- 고비용 AI 수정이 필요한 크래시·부채·오류는 자동 수리 대신 **큐에 누적**
+- `/repairs` 로 운영자가 몰아서 승인 → 비용 폭주 방지
+
+### 7. 컴팩트 알림
+- 모바일 한 화면에 핵심 정보 (계좌/포지션/프로그램 상태) 표시
+
+---
+
+## 🧬 시스템 구조
+
+### 25 AXIS + 4 Foundation Layer
+모든 프로덕션 모듈이 **25개 축 + 4 Foundation** 에 100% 공식 소유
+(orphan 0 · 중복 0 · 유령 경로 0).
+
+| Tier | 축 | 역할 |
+|---|---|---|
+| 1 | `ai_brain` · `trade_engine` · `risk_management` | 핵심 매매 |
+| 2 | `postmortem` · `market_intelligence` · `strategy_engine` · `decision_context` | 분석/판단 |
+| 3 | `catchup` · `router` · `reconciler` · `external_trade_sync` | 실행 인프라 |
+| 4 | `system_management` · `notifier` · `tech_debt` · `data_integrity` · `self_diagnostics` · `temporal_context` | 운영/품질 |
+| 5 (메타) | `system_integrity` · `false_positive_audit` · `hot_reload` · `log_archive` · `homeostasis` | 자가 진화 |
+| Foundation | `state_persistence` · `runtime_config` · `axis_meta` · `axis_event_bus` | 공통 기반 |
+
+각 축에 `owns`(소유 모듈) + `tier` + `publishes`/`subscribes` 이벤트 명시.
+
+### 7-Stage 유기체 진화
+Meta-Awareness · Growth · Homeostasis · Response · Immunity · Circulation · Reproduction
+— 복기 → 학습 → 행동 변화 → 효과 측정 → 롤백의 **닫힌 피드백 루프**로 작동.
+
+### 학습·자가 인식 5단계
+| 단계 | 담당 | 핵심 메커니즘 |
+|---|---|---|
+| 1. 누적 | StateManager · PatternDB | trades.json · postmortems · SQLite |
+| 2. 복기 | PostmortemEngine | 즉시/일일/주간/월간 자동 실행 |
+| 3. 학습 | PatternDB + SuccessPatternDB + FalsePositiveAudit + CustomPatternDetector | 손실·성공·오탐·신규 발견 4종 DB |
+| 4. 배우기 | DecisionContext | 과거 패턴 top3 를 매 AI 판단 프롬프트에 자동 주입 + Screener 점수 반영 |
+| 5. 깨우치기 | TuningExecutor | 이벤트 기반 자율 파라미터 조정 + 3일 효과 검증 + 자동 롤백 |
+| Meta-cognition | SystemSelfState | 24h 슬라이딩 윈도우 자기 진단 (`struggling` / `recovering` / `excellent` 등 5 레벨) |
+
+---
+
+## 💻 주요 텔레그램 명령
+
+| 명령 | 설명 |
+|---|---|
+| `/성과` `/포지션` `/전략` `/계좌` `/시장` `/결산` | 매매 현황 |
+| `/health` | 25축 + 학습 5단계 + Foundation 건강도 |
+| `/selfstate` | 24h 자기 진단 + 자동 발견 손실 패턴 top3 |
+| `/tune` | 자율 튜닝 현황 (`/tune history`, `/tune params`) |
+| `/repairs` | 수리 큐 목록 (`/repairs history`, `/repairs today`) |
+| `/reload` | 코드 핫 리로드 |
+| 자유 입력 | AI 에게 직접 명령/질문 |
+
+전체 명령 → [MANUAL.md](MANUAL.md)
+
+---
 
 ## 문의
 
 이 저장소는 사용자 매뉴얼 공개용입니다.
-프로그램 설치, 계정 연동 등 운영 관련 문의는 운영자에게 하세요.
+프로그램 설치·계정 연동 등 운영 관련 문의는 운영자에게 하세요.
 
 ---
 
