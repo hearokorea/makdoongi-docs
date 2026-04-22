@@ -42,6 +42,15 @@
 - **핫리로드 축 편입 (30초 주기)** — 코드 리로드 + 인스턴스 재생성 + 참조 재주입이 하나의 축(25)으로 통합. 실패율·정체 자동 감시 + 반복 실패 모듈 자동 감지 → 수리 제안까지 순환
 - **24축 체계 + 소유 관계 명시화 (V3.72.1)** — V3.72 재구성. 모든 축에 `owns`(소유 모듈 경로) + `tier`(계층) 필드 공식 명시. 5개 Tier로 분류된 전체 체계가 투명하게 문서화됨. 전체 프로덕션 모듈이 24축 + 3 Foundation Layer 에 100% 공식 소유 (orphan 0 · 중복 0 · 유령 경로 0)
 - **로그·메시지 아카이브 (축 26, V3.72.1 신설)** — 텔레그램 송수신 전량을 SQLite 로 영속 기록 + 일별 로그 파일 tail 파싱으로 ERROR/WARNING 구조화 인덱싱. 30일 자동 retention. 다른 축(system_integrity · postmortem · false_positive_audit)이 조회 API 로 연계 참조 → 매도 실패 반복 등 이상 상황 감지 시 로그 증거 자동 첨부. 기존에 휘발되던 `_command_stats` · `_alert_cooldown` 메모리 상태를 영속 저장소로 승격
+- **유기체화 7-Stage 진화 (V3.72.1 완성)** — 살아 움직이는 생명체처럼 동작하도록 7단계 진화 완료
+  · **Meta-Awareness**: AI 가 자기 시스템 상태 인지 (system_self 자동 프롬프트 주입 — 포지션 만석/연속 손실/매도 실패율/regime_tag)
+  · **Growth 실증**: 일일 복기 → 전략 자동 튜닝 → SQLite `strategy_tuning_history` 영속 → STRATEGY_AUTO_TUNED 이벤트
+  · **Homeostasis Controller (축 25)**: 5분 주기 목표 상태 측정 → 이탈 시 자동 복귀 (신규 매수 차단/보수 모드/브로커 재연결)
+  · **Response 속도**: NEWS_URGENT 등 긴급 이벤트 → 2초 내 AI 루프 트리거 (이전 180초 → 90× 빠른 반응)
+  · **Immunity 자동 치유**: SELL_FAIL_STREAK / HOT_RELOAD_FAILED / HEARTBEAT_STALE 등 5종 CRITICAL 이벤트 자동 치유
+  · **Circulation 가시화**: 이벤트 핸들러 실패 통계 누적 → /health 노출
+  · **Reproduction**: 익절 5%+ 매도 시 성공 시그니처 자동 추출 → `data/success_patterns.json` 영속 → 다음 매수 판단에 가중치
+  · 신규 AI 도구: `get_homeostasis_status` · `get_success_patterns` (AI 가 자발적 조회 가능)
 - **컴팩트 알림** — 모바일 알림 한 화면에 핵심 정보 모두 표시
 
 ## 문의
