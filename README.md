@@ -63,7 +63,13 @@
   · 핫리로드 완료 직후 전수 감사 + 자동 교정 → **코드 업데이트 직후 레거시 저장값이 스스로 보정**
   · 교정 시 DATA_SCHEMA_MISMATCH 이벤트 발행 → 다른 축이 반응 가능 (학습/경보)
   · 새 AI 도구 `audit_data_consistency` — AI 가 스스로 감사·교정 호출 가능
-  · 첫 룰: `position_group_hold_sec_alignment` (AI-초단타 그룹 + max_hold_sec>1일 자동 교정)
+  · 등록된 룰 2종: `position_group_hold_sec_alignment` (AI-초단타 + max_hold_sec>1일 자동 교정), `trades_buy_group_max_hold_sec_completeness` (BUY 거래 레거시 필드 bulk 보정)
+- **시스템 자가 감지 오탐 맥락화 (V3.72.1, 2026-04-22 감사 기반)** — 경보 폭주 해소
+  · `NO_TRADE_DURING_ACTIVE`: 점심시간 skip + 안전장치 교차검증 + 포지션 만석 skip + 임계 3h/6h 상향
+  · `LOOP_STALL_CRITICAL`: 장마감 + 30분 grace (16:00 이후 scalp 비실행 정상)
+  · `MIDLONG_STALL_CRITICAL`: 오늘 첫 midlong 실행 후 120분 grace (재시작 직후 오탐 차단) + 최신 파일 참조 버그 수정
+  · 효과: CRITICAL 경보 3종의 명백한 오탐이 사라져 텔레그램 노이즈 감소
+- **항상성 상태 영속 (V3.72.1, 2026-04-22)** — `data/homeostasis_state.json` 저장/복원 추가. 재시작 후에도 off_targets/최근 자동 조치 이력이 보존되어 AI 프롬프트 자기인지 섹션에 즉시 반영
 - **컴팩트 알림** — 모바일 알림 한 화면에 핵심 정보 모두 표시
 
 ## 문의
