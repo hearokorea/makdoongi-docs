@@ -96,7 +96,7 @@
 | `/weekly` | 주간 | 주간 복기 |
 | `/monthly` | 월간 | 월간 복기 |
 | `/brain` | - | AI 작동 현황 (루프 횟수, 일일 비용, 도구 수, 축 건강도) |
-| `/health` | - | 🩺 23축 + Foundation Layer 건강도 (V3.72) — `/health <축id>` 로 상세 조회. **부팅 직후 30~60초 이내 신설축(system_integrity·false_positive_audit) 최초 기록 자동 확보** |
+| `/health` | - | 🩺 24축 + Foundation Layer 건강도 (V3.72.1) — `/health <축id>` 로 상세 조회. **부팅 직후 30~90초 이내 신설축(system_integrity·false_positive_audit·log_archive) 최초 기록 자동 확보** |
 | `/router` | 라우터 | AI 비용 라우터 통계 |
 | `/debt` | 부채 | 기술 부채 현황 |
 | `/catchup` | 누락 | 놓친 작업 지연 실행 |
@@ -485,6 +485,59 @@ AI/사용자 검토·수정 → 감지 품질 향상 → 축 23 재개선
 ```
 
 메타 레이어이므로 **시스템 품질이 스스로 개선되는 순환**을 형성합니다.
+
+---
+
+## 4-7. 로그·메시지 아카이브 (축 26, 5분 주기) — V3.72.1 신설
+
+시스템이 생성하는 모든 기록(파일 로그 + 텔레그램 송수신)을 **한 축이 일원화해서
+생성·편집·제어·유지보수·관리**합니다.
+
+### 왜 필요한가 (2026-04-22 사례)
+
+- 매도 20회 반복 실패 중 로그에는 명확한 증거가 있었지만, **파일 로그를 구조화해
+  참조하는 축이 없어** 축 23(system_integrity) 이 감지 규칙을 늦게 발동
+- 텔레그램 송수신 메시지가 메모리 dict(`_command_stats`)에만 있어 **재시작 시
+  전량 소실** — 알림 중복/누락을 사후 감사 불가
+- 축 24(오탐 감사) 가 "이 경보가 중복 발송됐는가" 검증하려면 **발신 이력**이
+  영속 저장돼 있어야 하는데 없었음
+
+### 저장 체계
+
+| 유형 | 저장소 | retention |
+|---|---|---|
+| 텔레그램 송신 | SQLite `telegram_messages (direction='sent')` | 30일 |
+| 텔레그램 수신 | SQLite `telegram_messages (direction='received')` | 30일 |
+| 파일 로그 ERROR/WARNING | SQLite `log_events` | 30일 |
+| 파일 로그 원본 | `logs/makdoongi_YYYY-MM-DD.log` | 30일 (loguru) |
+
+### 주기 작업
+
+- 5분마다: 오늘 로그 파일 tail 파싱 → ERROR/WARNING 만 DB 에 인덱싱
+- 하루 1회: retention(30일) 초과 엔트리 자동 정리
+- 실시간: 텔레그램 `send()` / `_record_command()` hook 으로 매 이벤트 즉시 기록
+
+### 다른 축과 연계
+
+- **축 23 (system_integrity)** — `SELL_FAIL_STREAK` 같은 감지 시 로그 증거
+  자동 조회해서 `evidence.recent_log_events` 에 첨부
+- **축 22 (postmortem)** — 즉시 복기 실행 시 해당 종목 최근 1시간 ERROR 로그를
+  `log_evidence` 필드로 자동 첨부
+- **축 24 (false_positive_audit)** — 알림 중복 수 조회로 FP 판정 보조
+- **향후 확장 AI 도구**: "최근 에러 요약" 질문 시 AI가 즉답 가능
+
+### 조회 API (축간 호출)
+
+- `query_recent_errors(hours, keyword, levels, limit)` — 로그 이벤트 필터
+- `query_telegram_history(direction, hours, message_type, limit)` — 메시지 이력
+- `count_recent_alert_duplicates(keyword, minutes)` — 중복 경보 카운트
+- `get_summary(hours)` — 요약 통계 (AI 도구/health 보조)
+
+### 효과
+
+- **감지 규칙이 로그 기반 증거와 결합** → 같은 사고 재발 시 훨씬 빠른 진단
+- 운영자가 특정 날짜 텔레그램 이력 완전 재구성 가능 (감사/규제 대응)
+- 재시작 후에도 직전 경보/명령 흐름 이어서 조회 가능
 
 ---
 
