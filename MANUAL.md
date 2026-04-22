@@ -660,6 +660,48 @@ AI 도구 `audit_data_consistency` 로 AI 가 스스로 감사를 실행할 수 
 
 ---
 
+## 4-14. 자투리 포지션 차단 + 자동 청산 (V3.72.1 피드백, 2026-04-22)
+
+AI 가 예수금 부족 또는 그룹 배분 말미에 **8천~4만원대 자투리** 매수를 반복하던 문제
+(실제 19건 BUY 중 7건이 10만원 미만)를 양방향으로 해결했습니다.
+
+### 신규 매수 차단 (`min_order_amount`)
+
+| 파라미터 | 기본값 | 동작 |
+|---|---|---|
+| `min_order_amount` | 500,000원 | `quantity × price` 가 이 값 미만이면 safety_layer 에서 BUY 차단 |
+
+**차단 로그 예시**:
+```
+[SAFETY] blocked: 주문금액 8,034원 < 건당 하한 500,000원 — 자투리 매수 차단
+```
+
+AI 도구 `buy_stock` description 에도 이 제약이 명시되어 AI 가 자발적으로 회피합니다.
+
+### 기존 자투리 자동 청산 (`tiny_liquidation_enabled`)
+
+| 파라미터 | 기본값 | 동작 |
+|---|---|---|
+| `tiny_liquidation_enabled` | False | True 시 자투리 포지션 자동 청산 모드 활성 |
+| `tiny_liquidation_threshold_pct` | 0.0 | 이 수익률 이상이면 매도 (0.0 = 본전 이상) |
+
+`position_monitor.on_tick` 의 6번째 단계로 동작 — 강제손절/손절/익절/트레일링/기간제한
+다음 순서. **자투리 포지션(cost < min_order_amount)** 중 **pnl ≥ threshold** 이면
+즉시 시장가 매도.
+
+**매도 사유**: `자투리청산 +0.15% (매입 8,034원 < 하한 500,000원, 손해없이 처분 — 수수료/슬리피지 비효율)`
+
+### 운영 예
+
+```
+/set_config tiny_liquidation_enabled true          # 청산 모드 활성
+/set_config tiny_liquidation_threshold_pct -0.5    # 0.5% 손실까지 허용
+/set_config min_order_amount 300000                # 주문 하한 30만원으로 완화
+/set_config min_order_amount 0                     # 주문 하한 비활성
+```
+
+---
+
 ## 4-10. AI 자기 분류·통계 (V3.72.1 Backlog P3 완료)
 
 AI 자기 이해와 운영자 가시성을 위해 내부 자원을 명시적으로 분류했습니다.

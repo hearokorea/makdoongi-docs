@@ -70,6 +70,11 @@
   · `MIDLONG_STALL_CRITICAL`: 오늘 첫 midlong 실행 후 120분 grace (재시작 직후 오탐 차단) + 최신 파일 참조 버그 수정
   · 효과: CRITICAL 경보 3종의 명백한 오탐이 사라져 텔레그램 노이즈 감소
 - **항상성 상태 영속 (V3.72.1, 2026-04-22)** — `data/homeostasis_state.json` 저장/복원 추가. 재시작 후에도 off_targets/최근 자동 조치 이력이 보존되어 AI 프롬프트 자기인지 섹션에 즉시 반영
+- **자투리 매수 차단 + 기존 자투리 자동 청산 (V3.72.1, 2026-04-22 피드백)** — 수수료·슬리피지 대비 비효율적인 소액 매매 근절
+  · **신규 차단**: `min_order_amount` (기본 500,000원) — 건당 주문 금액 하한. 미달 시 safety_layer 에서 BUY 차단 ("자투리 매수 차단")
+  · **기존 청산**: `tiny_liquidation_enabled` — on_tick 6단계로 자투리 포지션(cost < min_order_amount)이 본전(기본) 회복 시 자동 매도. 손해 없이 처분
+  · AI 도구 `buy_stock` description 에 명시 → AI 가 스스로 회피
+  · 텔레그램 `set_config` 로 기준 조정 가능 (min_order_amount=0 비활성)
 - **컴팩트 알림** — 모바일 알림 한 화면에 핵심 정보 모두 표시
 
 ## 문의
