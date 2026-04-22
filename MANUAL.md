@@ -585,6 +585,52 @@ AI 도구 `get_success_patterns` 로 AI 가 자발적으로 조회할 수도 있
 
 ---
 
+## 4-11. 스키마 정합성 자동 관리 (축 18 확장, V3.72.1)
+
+코드 개선 때마다 저장 데이터 필드 의미가 바뀌는데 **레거시 값은 그대로 남아**
+의미 불일치를 만듭니다(예: 포지션의 `group="AI-초단타"` 인데 `max_hold_sec=2592000(30일)`
+으로 저장돼 태그가 `[장기/AI-초단타]` 로 잘못 표시). 매번 수동 핫픽스 대신 이 문제를
+**능동적·유기적**으로 해결하는 체계를 도입했습니다.
+
+### 설계 — plugin 방식 ConsistencyRule
+
+- 소유 모듈(position_monitor / strategy_store / runtime_config / ...)이 자기 영역의
+  cross-field 룰을 직접 등록 → `DataIntegrityGuard` 가 전수 검사·교정을 수행
+- **각 축이 자기 데이터 책임** (유기체 원칙 — 단일 중앙 집중 X)
+
+### 자동 실행 시점
+
+- **핫리로드 완료 직후** (runtime_wiring 이 룰 재등록 + 감사 1회 실행)
+- HOT_RELOAD_COMPLETED 이벤트 훅 (main.py 안전망)
+- 축 18 주기 감사 — V3.72.1 에서 주간(168h) → 시간당(1h) 로 단축
+
+### 교정 흐름
+
+```
+check_fn() → 위반 목록         # 예: [{ticker:049480, group:AI-초단타, current:2592000, expected:86400}]
+    ↓
+repair_fn()                    # 메모리(PositionMonitor) + 디스크(positions.json 원자적 쓰기) 동시 교정
+    ↓
+DATA_SCHEMA_MISMATCH 이벤트    # 다른 축이 반응 가능 (학습/경보 연계)
+```
+
+### AI 자발 조회
+
+AI 도구 `audit_data_consistency` 로 AI 가 스스로 감사를 실행할 수 있습니다
+(`auto_repair=false` 옵션으로 dry-run 도 가능).
+
+### 현재 등록된 룰 (첫 레퍼런스)
+
+| 룰 | 소유 | 검사 | 교정 |
+|---|---|---|---|
+| `position_group_hold_sec_alignment` | position_monitor | AI-초단타 그룹 + max_hold_sec>86400 | memory + disk 동시 86400 로 교정 |
+
+**향후 확장 지점**: `strategy_store` (전략 JSON 스키마), `runtime_config` (파라미터 범위),
+`success_patterns` (시그니처 포맷 진화) 등. 필요 시 같은 방식으로 룰만 추가 등록하면
+재시작 없이 반영됩니다.
+
+---
+
 ## 4-10. AI 자기 분류·통계 (V3.72.1 Backlog P3 완료)
 
 AI 자기 이해와 운영자 가시성을 위해 내부 자원을 명시적으로 분류했습니다.

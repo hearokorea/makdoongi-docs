@@ -57,6 +57,13 @@
   · **운영 자산 정리**: loop_journal/trade_journal 30일 자동 purge + 전략 백업/테스트/WAL 파일 git 제외
   · **체계 분류**: 107/107 AI 도구 카테고리화 (22 분류) + 143/143 파라미터 그룹화 (14 분류) + 메타 축(tier 5) meta_group 부여
   · **포지션 자가 보정**: group↔max_hold_sec 정합성 불일치 자동 교정 ([장기/AI-초단타] 등 레거시 태그 버그 방지)
+- **스키마 정합성 자동 관리 (V3.72.1, 2026-04-22)** — 코드 개선 시 "레거시 데이터 불일치" 의 능동적·유기적 해결
+  · 축 18 data_integrity 를 **파일 손상 감지**에서 **cross-field 의미 정합성 감사**까지 확장
+  · 소유 모듈이 자기 cross-field 룰을 plugin 방식으로 등록(ConsistencyRule) — 각 축이 자기 데이터 책임
+  · 핫리로드 완료 직후 전수 감사 + 자동 교정 → **코드 업데이트 직후 레거시 저장값이 스스로 보정**
+  · 교정 시 DATA_SCHEMA_MISMATCH 이벤트 발행 → 다른 축이 반응 가능 (학습/경보)
+  · 새 AI 도구 `audit_data_consistency` — AI 가 스스로 감사·교정 호출 가능
+  · 첫 룰: `position_group_hold_sec_alignment` (AI-초단타 그룹 + max_hold_sec>1일 자동 교정)
 - **컴팩트 알림** — 모바일 알림 한 화면에 핵심 정보 모두 표시
 
 ## 문의
