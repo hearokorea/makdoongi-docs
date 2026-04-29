@@ -204,7 +204,7 @@
 - 이벤트 공통 헤더 자동 추가 (event_id·sequence·timestamp)
 - 텔레그램 신규 명령 5개 (정동 조회·차단 4종)
 
-**축 체계 재구조화 (Phase A~D)**
+**축 체계 재구조화 (Phase A~F)**
 - 이벤트 타입 누락 자수 정리 (publish 안전성 회복)
 - 자가 감사 4축 + 항상성·핫리로드·로그아카이브·디스크감시 정식 축 승격
 - 감사 엔진 helper 강등 (orchestrator 중심으로 책임 정리)
@@ -214,6 +214,11 @@
 - 자본 변동 감지 자본 레이어 분리
 - 정동·자본·AI 판단 감사 broadcast-only 명시
 - 축 등록 SoT 자동 발견 우선 통합 (코드 진화 자동 반영)
+- 중복 짝 5쌍 alias 통합 (catchup/homeostasis/log_archive/postmortem/system_integrity)
+- 의사결정·시간 컨텍스트·매매 액션 보관·유지보수·메모 영속 정식 축 승격
+- 상태 영속화·런타임 설정 Foundation 에서 정식 축 격상 (BUG fix)
+- critical 정보 손실 차단 정책 (legacy=T 자동 격상)
+- 정책 이벤트·디스크 감시 broadcast 의도 명시
 
 **전략 메모·시스템 운영**
 - 전략 메모 무한 보존
