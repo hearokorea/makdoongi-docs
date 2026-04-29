@@ -63,6 +63,23 @@
 
 ## 2026년 4월 5주차 (04-27 ~ 05-03) — 데이터 일관성 · 매매 1년 추적 · 슬롯 적극 활용
 
+**04-29 추가 (Phase α/β/γ 통합 + 정밀 감사 P0/P1)**:
+- **데이터 모델 직교 6차원 분리** — sector(산업)/managed_by(AI vs 운영자)/horizon(전략)/signal_origin(신호 출처)/source/sell_reason 분리. 한 field 의 5차원 혼재 해소
+- **복기 학습 폐회로 완성** — 즉시 복기가 보고만 하던 문제 해결. 매수 결정 시 강제 차단 (-5%×2회 OR -3%×3회 손실 누적 + 확신 신호 없으면 SKIP)
+- **종목 그룹 풀 자동화** — 70 종목 pykrx 검증 매핑 + on-demand 자동 분류 (신규 종목 매수 시 즉시 키워드 룰 → AI 폴백 → 영구 등록)
+- **AI 임의 그룹 차단** — "AI-단남"/"AI-자원에너지" 같은 AI hallucination 자동 정정 + 학습 (1시간 cooldown 으로 워닝 spam 차단)
+- **ticker_group_map 외부 수정 자동 감지** — 운영자 수동 보정 즉시 라이브 반영 (file watcher mtime)
+- **Zone gate 안전 강화** — Zone 미등록 + 시작 5분+ 지난 상태에서 위험 capability(신규매수/큰매수/강제매도) 자동 차단
+- **항상성 컨트롤러 무한 루프 차단** — 공격 모드 30분 cooldown + loss_streak 2회 이상 시 차단 (이전: 12분 만료 후 즉시 재진입 가능)
+- **위험 매수 차단 강화** — cash_idle 이탈 시 자본 6%+ 매수 자동 차단 (이전: 플래그 설정만, safety_layer 미사용)
+- **포지션 복구 그룹 검증** — 4-21 무효 그룹 사고 재발 방지 (STANDARD 외 그룹은 ticker_group_resolver 강제 매핑)
+- **체결잔고 race window 3중 방어선 완성** — order_no 즉시 등록 + ticker 60초 TTL + intent 60분 fallback (외부거래 오탐 차단)
+- **매도 register_program_order 추가** — 매도 시 자기 주문 등록 누락으로 외부거래 오탐 발생하던 사고 fix
+- **AI 응답 잘림 즉시 self-heal** — 1회 잘림 발견 즉시 ai_max_tokens + max_iter 동시 상향 (이전: 5회 누적 필요로 정보 손실)
+- **운영 중 trades.json 외부 정정 자동 반영** — 메모리 race 차단 (이전: 정정 후 main.py 가 메모리로 덮어쓰던 문제)
+- **/restart 텔레그램 명령 강화** — main.py 유지 (공인인증 세션 유지) + 큰 모듈 (ai_brain/_core) 강제 핫리로드 가능
+
+**04-28 (어제) 진행분**:
 - 잔고/보유종목 표시 일관성 (보고서별 들쭉날쭉 차단)
 - 자산 환각 차단 (통신 실패 시 잘못된 추정치 출력 차단)
 - 매매 액션 1년 모니터링 (익절/손절/보류/홀딩/강제청산/외부거래)
