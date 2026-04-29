@@ -215,6 +215,9 @@
 - 중복 axis alias 통합
 - broadcast 의도 명시
 - critical 손실 차단 정책
+- 핵심 운영 모듈 spec 명시 22개
+- broadcast 의도 spec 일관화
+- DEAD EventType publish 보강
 
 **전략 메모·시스템 운영**
 - 전략 메모 무한 보존
