@@ -218,6 +218,10 @@
 - 핵심 운영 모듈 spec 명시 22개
 - broadcast 의도 spec 일관화
 - DEAD EventType publish 보강
+- 자동 setup 패턴 분류 (main_managed·helper_module)
+- 축간 이벤트 버스·런타임 주입 Foundation 격상
+- heartbeat tier 격상
+- subscriber 정합성 보정
 
 **전략 메모·시스템 운영**
 - 전략 메모 무한 보존
