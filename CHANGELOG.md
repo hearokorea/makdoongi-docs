@@ -281,6 +281,18 @@
 - 감사 클로드 매매기록 표준 전달 형식
 - 정정 history JSONL 영속 표준화
 
+**손익 계산 정확화 (장 마감 후)**
+- 일일 결산 phantom 자동 제외
+- pnl_won 직접 합산 우선
+- 입출금 자동 오감지 차단
+- 복기 broker_import 매칭
+
+**파편화 정리 Phase 1**
+- 누적 보고서 archive 분리
+- 일회성 도구 archive 분리
+- AXIS_INVENTORY 단일 파일화
+- helper 자동 분류 명시 (17개)
+
 ---
 
 ## 상태 표기
