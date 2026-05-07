@@ -627,6 +627,15 @@
 - 핫리로드 attr 누락 자동 복구 (3 모듈)
 - 외부거래 오분류 가시화 (4-21 사고 차단 강화)
 
+**50루프 2차 정밀 감사 (v39 이후 더 깊은 결함 + 본인 결함 정정)**
+- AI 매매 결정 캐시 stale 차단 (DecisionContext 무효화 흐름 복원)
+- INTEGRITY_CRITICAL 매수 일시중지 즉시 활성 (4-21 사고 재발 차단)
+- 자본 한도 250% 폭주 차단 (safety_max_position_pct fallback 정렬)
+- 매도 실패 영구 잔류 차단 (failed 마킹 가시화)
+- 환경변수 단일 진실 통일 (ZONE_SPLIT_MODE 4 callsite RC 경유, 295 키)
+- 능동 통지 사슬 복원 (편집 모드/자본 재계산/핫리로드 → 자가 시스템 즉시 반응)
+- broker 직접 호출 우회 제거 (HoldingsProvider 단일 진실 통일)
+
 ---
 
 ## 상태 표기
