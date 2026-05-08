@@ -949,6 +949,30 @@
 - decision_context 외부 fetch 경량화
 - 25초 → 2.1초
 
+### AI 섹터 회전 분석
+- 매주 월요일 09:00 자동
+- 섹터별 손익 집계
+- 강중약 자동 분류
+- 회피우선 섹터 제안
+- RC 조정 제안 자동
+- 환경변수 8 키 중앙화
+- AI_SECTOR_ROTATION_DONE EventType
+
+### AI 운영자 콕 찝기 NL→RC
+- /pin 자유 텍스트 텔레그램 명령
+- AI PARAM_DEFS 화이트리스트 매칭
+- 키 변경값 근거 자동 생성
+- /approve_pin_proposal 통과
+- 환경변수 5 키 중앙화
+- AI_OPERATOR_PIN_DONE EventType
+
+### lifecycle 중앙화 리팩토링
+- SOURCE_CONFIGS 단일 진실
+- 신규 source 추가 config 한 줄
+- if/elif 분기 영구 제거
+- dot-path 데이터 정의
+- 4 sources 통합 loss/morning/sector/pin
+
 ---
 
 ## 상태 표기
