@@ -1024,6 +1024,14 @@
 - 모듈 격리 원칙 정합
 - 메인 thread 절대 차단 X
 
+### 로그 노이즈 영구 해소
+- PyYAML 설치 DART 분류 정상화
+- TelegramNotifier 싱글턴 등록
+- PositionMonitor 싱글턴 등록
+- heartbeat 텔레그램 ping 부활
+- 슬롯 표시 정확화 scalp·mid·long
+- ScalpPosition dataclass getattr 폴백
+
 ---
 
 ## 상태 표기
