@@ -1032,6 +1032,13 @@
 - 슬롯 표시 정확화 scalp·mid·long
 - ScalpPosition dataclass getattr 폴백
 
+### 새 부팅 로그 3 critical
+- structlog 32bit 설치 Strategy Lab 정상
+- sys.modules ImportError cache 영구 우회
+- 런타임 pip install 호환 invalidate 패턴
+- module-level setup main_thread 가드
+- QObject::startTimer Qt thread safety 정합
+
 ---
 
 ## 상태 표기
