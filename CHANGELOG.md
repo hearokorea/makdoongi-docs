@@ -564,6 +564,15 @@
 - 주기·시간대 환경변수
 - 묵음 vs 죽음 즉시 식별
 
+**hang 발생 자체 차단**
+- AI API ThreadPool 강제 위임
+- 모든 AI 호출 메인 PyQt 차단 X
+- TR HARD CAP 30초
+- TR 쿨다운 0.5초 단축
+- task 점유 1분+ 자동 hang 판정
+- 자가 회복 cooldown 60초
+- heartbeat 모듈 자가 회복 대상
+
 **Strategy Lab Pillar 6 명시**
 - 자기 진화 두뇌 위치 명시
 - 별도 프로세스 통신
