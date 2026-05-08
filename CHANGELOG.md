@@ -564,6 +564,18 @@
 - 주기·시간대 환경변수
 - 묵음 vs 죽음 즉시 식별
 
+**프로그램 로그 정기 생존 신호**
+- 운영자 로그 모니터링 측 ping
+- 텔레그램 ping 과 책임 분리
+- 5분 주기 default
+- 침묵 시간대 자동 억제
+
+**Strategy Lab 자동 시작**
+- launcher 별도 프로세스 백그라운드 가동
+- broker 의존 X 인증 부담 0
+- 메인 종료 시 graceful stop 자동
+- 가설·사망사유 도서관 자동 누적
+
 **hang 발생 자체 차단**
 - AI API ThreadPool 강제 위임
 - 모든 AI 호출 메인 PyQt 차단 X
