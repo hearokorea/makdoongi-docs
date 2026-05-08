@@ -1010,6 +1010,13 @@
 - 470 키 검증
 - AnnAssign 호환
 
+### hot_reload 메인 차단 영구 해소
+- task_wrapper 통과 별도 thread
+- self-reload check_and_reload 순차
+- sys.modules race 차단
+- 메인 PyQt 0초 차단 보장
+- hot_reload timeout 30→90초
+
 ---
 
 ## 상태 표기
