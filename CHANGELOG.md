@@ -1017,6 +1017,13 @@
 - 메인 PyQt 0초 차단 보장
 - hot_reload timeout 30→90초
 
+### 메인 종속성 영구 차단
+- submit_task_safe 단일 진실 helper
+- task_wrapper threading.Thread SKIP 3단 fallback
+- 메인 직접 폴백 패턴 7곳 일괄 제거
+- 모듈 격리 원칙 정합
+- 메인 thread 절대 차단 X
+
 ---
 
 ## 상태 표기
