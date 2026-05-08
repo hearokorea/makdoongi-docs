@@ -921,6 +921,17 @@
 - 환경변수 5 키 중앙화
 - AI_LOSS_ANALYSIS_DONE EventType
 
+### AI 일일 아침 운영 권고
+- 매일 08:30 사전 점검
+- 어제 P&L 복기 자동
+- 직전 7일 통계 통합
+- 시장 자세 자동 분류 공격/중립/방어
+- RC 조정 제안 자동
+- 위험 경고 자동
+- 휴장일 자동 skip
+- 환경변수 5 키 중앙화
+- AI_MORNING_BRIEFING_DONE EventType
+
 ---
 
 ## 상태 표기
