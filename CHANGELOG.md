@@ -973,6 +973,43 @@
 - dot-path 데이터 정의
 - 4 sources 통합 loss/morning/sector/pin
 
+### 원장님 피드백 매수 비중 상향
+- 확신도 기반 매수 cap 30→40
+- 단일 포지션 비중 cap 10→15
+- 강신호 boost 1.5→1.8
+- 매수액 backstop 8M→15M
+- 일일 손실 차단 -3→-2.5
+
+### 50 루프 축 체계 정밀 감사
+- 360+ 파일 163 axis spec 인벤토리
+- Tier 분포 + meta_group 38 종 분석
+- alias 6 페어 검출
+- 통합 융합 후보 식별
+- Phase A B C 우선순위 분류
+- 휘발성 차단 영구 영속 .md
+
+### 축 메타 환경변수 중앙화
+- meta_group alias RC 사전
+- axis tier RC override 사전
+- 운영자 동적 조정
+- axis_auto_register 자동 통합
+- intelligence 27→30 흡수
+
+### Foundation 3 정합
+- hot_reload Foundation 격상
+- Foundation 7개 완성
+- 명세 무결성
+
+### Self-test 22 시나리오
+- AI advisor 5 singleton 시나리오
+- lifecycle SOURCE_CONFIGS 시나리오
+- 22 테스트 1.87초
+
+### RC dead key 스캐너
+- AST 정적 분석
+- 470 키 검증
+- AnnAssign 호환
+
 ---
 
 ## 상태 표기
