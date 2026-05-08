@@ -890,6 +890,19 @@
 - 크래시 복구 포지션 재조정 main 직후 중복 차단
 - 부팅 로그 130 → 30 줄 단축
 
+### Import 누락 자동 감지
+- AST 정적 분석 5분 주기
+- 누락 텔레그램 자동 알림
+- 신규만 알림 재알림 차단
+- 검사 디렉토리 환경변수
+- IMPORT_MISSING_DETECTED EventType
+
+### Strategy Lab main 자동 시작
+- launcher 의존 X 보장
+- subprocess Popen 별도 process group
+- 단일 인스턴스 lock 5분 grace
+- 환경변수 토글
+
 ---
 
 ## 상태 표기
