@@ -550,6 +550,10 @@
 - 좀비만 자동 정리
 - 강제 종료 코드 물리 제거
 - WATCHDOG_SHUTDOWN 운영자 명시 종료만 보존
+- AI 자율 종료 도구 영구 폐기
+- 외부 SIGTERM 무시
+- 미처리 예외 무한 재시도 backoff
+- 종료 통과 경로 SoT 5개로 한정
 
 **Strategy Lab Pillar 6 명시**
 - 자기 진화 두뇌 위치 명시
