@@ -582,6 +582,12 @@
 - RECONCILE 빈 응답 영구 차단
 - 매매기록 정합성 자동 복원
 
+**텔레그램 에러 통합 핸들러**
+- error_handler 등록
+- transient vs critical 자동 분류
+- 일시 네트워크 끊김 1줄 로그
+- stack trace 폭주 영구 차단
+
 **hang 발생 자체 차단**
 - AI API ThreadPool 강제 위임
 - 모든 AI 호출 메인 PyQt 차단 X
