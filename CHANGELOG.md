@@ -943,6 +943,12 @@
 - 즉시 핫리로드
 - AI_PROPOSAL_APPROVED EventType
 
+### 자가 진단 92% 단축
+- 시나리오 ThreadPoolExecutor 병렬
+- 단일 시나리오 hard timeout
+- decision_context 외부 fetch 경량화
+- 25초 → 2.1초
+
 ---
 
 ## 상태 표기
