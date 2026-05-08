@@ -572,6 +572,15 @@
 - task 점유 1분+ 자동 hang 판정
 - 자가 회복 cooldown 60초
 - heartbeat 모듈 자가 회복 대상
+- launcher 시작 timeout 1초 단축
+
+**이전보유 영구 잔존 차단 강화**
+- ticker_group_auto_classifier 폴백 추가
+- trades 그룹 부재 시에도 자동 복원
+
+**자가 감사 false positive 차단**
+- 모듈 로그 prefix 부분 매칭
+- 시스템 정상 가동 중 침묵 오판 영구 차단
 
 **Strategy Lab Pillar 6 명시**
 - 자기 진화 두뇌 위치 명시
