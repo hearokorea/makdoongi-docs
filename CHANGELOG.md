@@ -903,6 +903,24 @@
 - 단일 인스턴스 lock 5분 grace
 - 환경변수 토글
 
+### AI 스크리닝 1차 선별
+- 매일 09:30 후보 압축 자동
+- 부실 기업 자동 회피
+- 강한 섹터 우선 진입
+- cost_guard ai_worker 통합
+- data ai_screening 영속
+- 환경변수 5 키 중앙화
+- AI_SCREENING_DONE EventType
+
+### AI 손실 패턴 분석
+- 매일 16:00 자가 학습
+- 직전 7일 손절 패턴 추출
+- RC 조정 제안 자동 생성
+- 운영자 승인 lifecycle
+- 같은 함정 재진입 차단
+- 환경변수 5 키 중앙화
+- AI_LOSS_ANALYSIS_DONE EventType
+
 ---
 
 ## 상태 표기
