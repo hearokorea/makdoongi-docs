@@ -576,6 +576,12 @@
 - 메인 종료 시 graceful stop 자동
 - 가설·사망사유 도서관 자동 누적
 
+**TR 직렬 대기 직렬화**
+- 즉시 스킵 → 5초 대기 후 스킵
+- TR slot 자동 직렬 처리
+- RECONCILE 빈 응답 영구 차단
+- 매매기록 정합성 자동 복원
+
 **hang 발생 자체 차단**
 - AI API ThreadPool 강제 위임
 - 모든 AI 호출 메인 PyQt 차단 X
