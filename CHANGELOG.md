@@ -932,6 +932,17 @@
 - 환경변수 5 키 중앙화
 - AI_MORNING_BRIEFING_DONE EventType
 
+### AI 제안 적용 lifecycle
+- 손실분석 제안 운영자 승인 텔레그램 명령
+- 아침권고 제안 운영자 승인 텔레그램 명령
+- 보류 제안 목록 조회 명령
+- PARAM_DEFS 화이트리스트 검증
+- 타입 범위 자동 coerce
+- 직전 7일 최신 제안만 대상
+- 승인 이력 영구 영속
+- 즉시 핫리로드
+- AI_PROPOSAL_APPROVED EventType
+
 ---
 
 ## 상태 표기
