@@ -557,6 +557,13 @@
 - heartbeat backup daemon 별도 스레드
 - 메인 점유 진단 자동 표시
 
+**텔레그램 정기 생존 신호**
+- 짧은 1줄 ping 정기 발송
+- 슬롯·loop·uptime·last_task 한 줄
+- 침묵 시간대 자동 억제
+- 주기·시간대 환경변수
+- 묵음 vs 죽음 즉시 식별
+
 **Strategy Lab Pillar 6 명시**
 - 자기 진화 두뇌 위치 명시
 - 별도 프로세스 통신
