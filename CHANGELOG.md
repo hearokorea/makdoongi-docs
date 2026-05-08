@@ -824,6 +824,27 @@
 - 발굴 모드 default wide
 - 부실 종목 제외 위주 정합
 
+### Zone 분리 활성화
+- 4 zones 별도 프로세스 가동
+- trading hang 시 4 zones 살아있음
+- notifier 텔레그램 영향 X
+- intelligence AI 분석 영향 X
+- ops 자가 시스템 영향 X
+
+### Task Wrapper 메인 종속성 완전 제거
+- 모든 task 별도 thread
+- 메인 thread blocking 0초 보장
+- ThreadPoolExecutor + Future + timeout
+- task hang Future cancel
+- task type 별 timeout 환경변수
+- broker 호출자 thread 분기
+- 메인 thread 호출 기존 패턴
+- 별도 thread 호출 threading Event 대기
+- TASK_WRAPPER_HANG TIMEOUT EventType
+- 환경변수 중앙화 단일 진실
+- 핫리로드 자동 적용
+- 메인 영구 보존 인증 부담 0
+
 ---
 
 ## 상태 표기
