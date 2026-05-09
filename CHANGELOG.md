@@ -1081,6 +1081,12 @@
 - auth_daemon trading_service spawn skip
 - AI 뉴스 매크로 리포트 정상
 
+### watchdog UAC 자동 처리
+- 매번 UAC 팝업 영구 폐기
+- 사용자 권한 진행
+- 관리자 권한 선택 표시
+- Start All 더블클릭 즉시 실행
+
 ---
 
 ## 상태 표기
