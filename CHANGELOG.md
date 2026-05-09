@@ -1067,6 +1067,13 @@
 - IPC 실패 시 fallback 보존
 - 인증 부담 영구 0
 
+### broker 실패 main 보존
+- AuthProxyBroker fallback HybridBroker 자동
+- broker 연결 실패 sys.exit 영구 제거
+- lock 파일 heartbeat 검증 stale 강제 spawn
+- 매매 비활성 다른 service 정상
+- 주말 휴장일 정보 수집 AI 리포트 유지
+
 ---
 
 ## 상태 표기
