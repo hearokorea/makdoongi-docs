@@ -1087,6 +1087,40 @@
 - 관리자 권한 선택 표시
 - Start All 더블클릭 즉시 실행
 
+### 휴장일 모드 통합
+- ContextSharedLayer 단일 helper
+- 한국 공휴일 빨간 날 주말 통합
+- KR_HOLIDAYS_2026 데이터
+- 임시 공휴일 custom_holidays.json
+- 모든 모듈 단일 helper 통과
+
+### 본체 cmd 창 분리
+- watchdog main 별도 콘솔
+- CREATE_NEW_CONSOLE
+- 콘솔 제목 막둥이 본체
+
+### 키움 정기 점검 시간 정정
+- 04:00~05:30 매일
+- 환경변수 RC HHMM
+- 운영자 동적 조정
+
+### 텔레그램 알림 22 EventType 전수
+- DART 위험 호재 공시
+- Import 누락 감지
+- Daemon 4 종 상태
+- AI advisor 5 + lifecycle
+- 휴장일 broker 폴백
+- 디스크 임계 heartbeat stale
+- Invariant 위반 META audit
+- 보수성 DART quota hot_reload 실패
+
+### 100 루프 정밀 감사
+- EventType 122 종 정상 끊김 분석
+- RC PARAM_DEFS 494 키 활용도
+- axis spec 177 모듈 Tier 분포
+- singleton 108 클래스
+- 영구 영속 .md
+
 ---
 
 ## 상태 표기
