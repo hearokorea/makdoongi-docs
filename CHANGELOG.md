@@ -1121,6 +1121,21 @@
 - singleton 108 클래스
 - 영구 영속 .md
 
+### NullBroker 영구 안전
+- broker None 메인 crash 영구 차단
+- BaseBroker 호환 dummy
+- 모든 method default 반환
+- 휴장일 연결 실패 통합
+- AttributeError 영구 X
+
+### 끊긴 EventType 진짜 복구
+- 텔레그램 22 → 40 EventType
+- KILL_SWITCH 3단계 알림
+- 데이터 PNL 사고 알림
+- 자가 수정 lifecycle 알림
+- 보고 감사 알림 통합
+- 삭제 0 모두 보존 + 복구
+
 ---
 
 ## 상태 표기
