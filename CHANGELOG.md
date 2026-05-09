@@ -1039,6 +1039,17 @@
 - module-level setup main_thread 가드
 - QObject::startTimer Qt thread safety 정합
 
+### Auth Daemon 별도 process
+- 인증서 영구 보유 별도 process
+- 키움 OCX main 에서 분리
+- TCP localhost JSON-RPC IPC
+- AuthProxyBroker BaseBroker 호환
+- main crash 무관 daemon 유지
+- 인증 부담 영구 0
+- 환경변수 8 키 중앙화
+- DAEMON 4 EventType
+- v75 Strategy Lab 패턴 확장
+
 ---
 
 ## 상태 표기
