@@ -1074,6 +1074,13 @@
 - 매매 비활성 다른 service 정상
 - 주말 휴장일 정보 수집 AI 리포트 유지
 
+### 휴장일 인증 부담 영구 0
+- main 부팅 초기 휴장일 검사
+- 주말 공휴일 자동 감지
+- 키움 OCX 인증 skip
+- auth_daemon trading_service spawn skip
+- AI 뉴스 매크로 리포트 정상
+
 ---
 
 ## 상태 표기
