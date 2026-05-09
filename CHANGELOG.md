@@ -1050,6 +1050,16 @@
 - DAEMON 4 EventType
 - v75 Strategy Lab 패턴 확장
 
+### Multi-Process Architecture
+- AI Service 별도 process
+- Intelligence Service 별도 process
+- Trading Service 별도 process
+- BaseService 패턴 일반화
+- ServiceClient 공통 base
+- crash 도미노 차단
+- 환경변수 14 키 중앙화
+- IPC TCP localhost JSON-RPC
+
 ---
 
 ## 상태 표기
