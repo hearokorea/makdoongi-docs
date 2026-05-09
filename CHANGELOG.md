@@ -1060,6 +1060,13 @@
 - 환경변수 14 키 중앙화
 - IPC TCP localhost JSON-RPC
 
+### 1회 인증 영구 작동
+- 모든 service default True
+- AI judge IPC forward
+- main crash 무관 service 유지
+- IPC 실패 시 fallback 보존
+- 인증 부담 영구 0
+
 ---
 
 ## 상태 표기
