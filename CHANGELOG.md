@@ -458,6 +458,22 @@
 - 감사 미감지 원인 영속 문서
 - 미래 회귀 차단 체크리스트
 
+**알림 노이즈 차단**
+- Meta Audit 결함 60분 dedup
+- 자연 감쇠 추세 알림 skip
+- INFO severity 알림 제외
+- AST 정밀화 false positive 차단
+
+**수리 큐 자동 정리**
+- pending 14일+ stale 자동 archive
+- resolved 14일+ 자동 제거
+- 매 5분 tick 자동 호출
+
+**프로그램 로그 인간 친화**
+- 14 메시지 stdlib logging → loguru 통일
+- JSON 형식 영구 차단
+- 한국어 escape 영구 차단
+
 ---
 
 ## 상태 표기
