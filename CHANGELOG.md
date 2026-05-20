@@ -426,7 +426,7 @@
 - AI 아침 운영 권고 자동 일배치
 - AI 섹터 회전 분석 자동 주배치
 - AI 운영자 콕 찝기 자동 일배치
-- MetaAudit 5 카테고리 통합 감사 자동
+- MetaAudit 6 카테고리 통합 감사 자동
 - 보수성 자동 교정 가동
 - ImportValidator 회귀 차단 가드 가동
 - RuntimeAttrGuard 핫리로드 스키마 가드 가동
